@@ -4,7 +4,7 @@
     <video id="video" playsinline width="640" height="360" controls>
         <source src="A60BF20AABD2A8520FAA7EB3EB8E1B00.mp4" type="video/mp4">
     </video>
-    <div><canvas id="canvas" width="640" height="360"></canvas></div>
+    <div><canvas id="canvas"></canvas></div>
 
     <script src="tf-4.22.0.min.js"></script>
     <script src="posenet-2.2.2.min.js"></script>
@@ -14,9 +14,7 @@
         const imageScaleFactor = 0.50;
         const flipHorizontal = false;
         const outputStride = 16;
-        const imageElement = document.getElementById('cat');
         var predictedPoses = [];
-
         var canvas = document.getElementById('canvas');
 
         posenet.load().then(function (net) {
@@ -24,9 +22,8 @@
                 net.estimateSinglePose(video, imageScaleFactor, flipHorizontal, outputStride).then(pose => {
                     console.log(pose)
                     predictedPoses[0] = pose;
-                    // video 的尺寸未知，如何获取？
-                    // canvas.width = video.width;
-                    // canvas.height = video.height;
+                    canvas.width = video.width;
+                    canvas.height = video.height;
                     drawResults(canvas, video, predictedPoses, 0.3, 0.3);
                 });
             }, false);
