@@ -15,9 +15,9 @@ function multiPersonCanvas() {
     return document.querySelector('#canvas');
 }
 
-function drawResults(canvas, poses, minPartConfidence, minPoseConfidence) {
-    renderImageToCanvas(image, [canvas.width, canvas.height], canvas);
+function drawResults(canvas, image, poses, minPartConfidence, minPoseConfidence) {
     const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
     poses.forEach((pose) => {
         if (pose.score >= minPoseConfidence) {
             drawKeypoints(pose.keypoints, minPartConfidence, ctx);
@@ -25,14 +25,6 @@ function drawResults(canvas, poses, minPartConfidence, minPoseConfidence) {
             drawBoundingBox(pose.keypoints, ctx);
         }
     });
-}
-
-function renderImageToCanvas(image, size, canvas) {
-    canvas.width = size[0];
-    canvas.height = size[1];
-    const ctx = canvas.getContext('2d');
-
-    ctx.drawImage(image, 0, 0);
 }
 
 function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
