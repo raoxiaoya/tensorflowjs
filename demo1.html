@@ -21,6 +21,8 @@
 
         posenet.load().then(function (net) {
             net.estimateSinglePose(image, imageScaleFactor, flipHorizontal, outputStride).then(pose => {
+                // console.log(JSON.stringify(pose));
+                console.log(pose);
                 predictedPoses[0] = pose;
                 canvas.width = image.width;
                 canvas.height = image.height;
