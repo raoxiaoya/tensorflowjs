@@ -1,0 +1,43 @@
+<html>
+
+<body>
+    <video id="video" playsinline  width="640" height="480" controls>
+        <source src="A60BF20AABD2A8520FAA7EB3EB8E1B00.mp4" type="video/mp4">
+    </video>
+    <div><img id="cat" style="display: none;"></div>
+    <div><canvas id="canvas" width="640" height="480"></canvas></div>
+
+    <script src="tf-4.22.0.min.js"></script>
+    <script src="posenet-2.2.2.min.js"></script>
+    <script src="util.js"></script>
+    <script type="text/javascript">
+        var video = document.getElementById('video');
+        const imageScaleFactor = 0.50;
+        const flipHorizontal = false;
+        const outputStride = 16;
+        const imageElement = document.getElementById('cat');
+        var image = imageElement;
+        var predictedPoses = [];
+
+        var canvas = document.getElementById('canvas');
+        var ctx1 = canvas.getContext('2d');
+
+        posenet.load().then(function (net) {
+            video.addEventListener('timeupdate', function () {
+                ctx1.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataURL = canvas.toDataURL('image/png');
+                image.src = dataURL
+                ctx1.clearRect(0, 0, canvas.width, canvas.height)
+
+                net.estimateSinglePose(video, imageScaleFactor, flipHorizontal, outputStride).then(pose => {
+                    console.log(pose)
+                    predictedPoses[0] = pose;
+                    drawResults(canvas, predictedPoses, 0.3, 0.3);
+                });
+            }, false);
+        });
+
+    </script>
+</body>
+
+</html>
