@@ -1,7 +1,7 @@
 <html>
 
 <body>
-    <img id="cat" src="./20250210101922.png">
+    <img id="cat" src="./111111.png">
     <div><canvas id="canvas"></canvas></div>
 
     <!-- <script src="https://unpkg.com/@tensorflow/tfjs"></script> -->
@@ -21,8 +21,8 @@
 
         posenet.load().then(function (net) {
             net.estimateSinglePose(image, imageScaleFactor, flipHorizontal, outputStride).then(pose => {
-                // console.log(JSON.stringify(pose));
-                console.log(pose);
+                console.log(JSON.stringify(pose));
+                // console.log(pose);
                 predictedPoses[0] = pose;
                 canvas.width = image.width;
                 canvas.height = image.height;
