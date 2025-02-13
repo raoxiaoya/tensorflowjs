@@ -1,0 +1,40 @@
+<html>
+
+<body>
+    <img id="cat" src="./images/111111.png">
+    <div><canvas id="canvas"></canvas></div>
+
+    <!-- <script src="https://unpkg.com/@tensorflow/tfjs"></script> -->
+    <!-- <script src="https://unpkg.com/@tensorflow-models/posenet"></script> -->
+
+    <script src="tf-4.22.0.min.js"></script>
+    <script src="pose-detection.min.js"></script>
+    <script src="pose-util.js"></script>
+
+    <script type="text/javascript">
+        var image = document.getElementById('cat');
+        const imageScaleFactor = 0.50;
+        const flipHorizontal = false;
+        const outputStride = 16;
+        var canvas = document.getElementById('canvas');
+
+        poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
+            modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+            modelUrl: "./movenet-tfjs-singlepose-lightning-v4/model.json",
+        }).then(function (net) {
+            // console.log(net);
+            net.estimatePoses(image, {
+                maxPoses: 1,
+                flipHorizontal: false,
+            }).then(function (pose) {
+                console.log(pose[0]);
+                canvas.width = image.width;
+                canvas.height = image.height;
+                drawResult(canvas, image, pose[0]);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<html>
+
+<body>
+    <img id="cat" src="./images/111111.png">
+    <div><canvas id="canvas"></canvas></div>
+
+    <!-- <script src="https://unpkg.com/@tensorflow/tfjs"></script> -->
+    <!-- <script src="https://unpkg.com/@tensorflow-models/posenet"></script> -->
+
+    <script src="tf-4.22.0.min.js"></script>
+    <script src="posenet-2.2.2.min.js"></script>
+    <script src="posenet-util.js"></script>
+
+    <script type="text/javascript">
+        var image = document.getElementById('cat');
+        const imageScaleFactor = 0.50;
+        const flipHorizontal = false;
+        const outputStride = 16;
+        var canvas = document.getElementById('canvas');
+
+        posenet.load().then(function (net) {
+            net.estimateSinglePose(image, imageScaleFactor, flipHorizontal, outputStride).then(pose => {
+                // console.log(JSON.stringify(pose));
+                console.log(pose);
+                canvas.width = image.width;
+                canvas.height = image.height;
+                drawResult(canvas, image, pose, 0.3, 0.3);
+            });
+        });
+    </script>
+</body>
+
+</html>
