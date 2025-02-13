@@ -3,7 +3,7 @@
 <body>
     <!-- <video id="video" playsinline width="640" height="360" controls> -->
     <video id="video" playsinline controls onloadedmetadata="loadvideo()" onended="saveFile()">
-        <source src="./videos/1B8F82264EAE24B6D99DE2A4BF4FBEFC.mp4" type="video/mp4">
+        <source src="./videos/28D7F4B5A5B648DB2448D7821D9334B0.mp4" type="video/mp4">
     </video>
     <div><canvas id="canvas"></canvas></div>
 
@@ -13,11 +13,8 @@
 
     <script type="text/javascript">
         var video = document.getElementById('video');
-        const imageScaleFactor = 0.50;
-        const flipHorizontal = false;
-        const outputStride = 16;
-        var predictedPoses = [];
         var canvas = document.getElementById('canvas');
+        var predictedPoses = [];
 
         function loadvideo() {
             console.log(video.clientWidth, video.clientHeight, 'data')

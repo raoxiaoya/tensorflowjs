@@ -13,12 +13,9 @@
 
     <script type="text/javascript">
         var image = document.getElementById('cat');
-        const imageScaleFactor = 0.50;
-        const flipHorizontal = false;
-        const outputStride = 16;
         var canvas = document.getElementById('canvas');
 
-        var detector = poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
+        poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
             modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING
         }).then(function (net) {
             // console.log(net);
